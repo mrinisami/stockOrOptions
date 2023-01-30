@@ -21,7 +21,9 @@ export interface GenericParams {
   taxRate: number;
   nomValue: number;
 }
-
+export interface CombinedParams extends GenericParams {
+  retThreshold: number;
+}
 export type advancedParams = MaxRetParams | SellWRetParams;
 
 export interface MaxRetParams {

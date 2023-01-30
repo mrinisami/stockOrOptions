@@ -1,22 +1,17 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import useAxios from "axios-hooks";
-import { produceWithPatches } from "immer";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addComparatorResults, GenericParams, MaxRetParams } from "../../../States/optionComp";
+import { useParams } from "react-router-dom";
+import queryString from "query-string";
+import ResultsDisplay from "./ResultsDisplay";
+import { CombinedParams } from "../../../States/optionComp";
 
-interface Props {
-  children: JSX.Element;
-}
-
-export default (props: Props) => {
-  const advancedParams: MaxRetParams = useSelector((state) => state.optionComp.advancedParams);
-  const genericParams: GenericParams = useSelector((state) => state.optionComp.genericParams);
-  const dispatch = useDispatch();
-  const combinedParams = { ...advancedParams, ...genericParams };
+export default () => {
+  const params = queryString.parse(location.search, { parseNumbers: true }) as unknown;
+  const ticker = useParams<{ ticker: string }>().ticker;
   const [{ data, error, loading }] = useAxios({
-    url: "/profit-using-max-ret-comparator",
-    data: combinedParams,
+    url: "/max-ret-comparator-results",
+    data: params,
     method: "POST"
   });
   if (error) {
@@ -26,8 +21,11 @@ export default (props: Props) => {
     return <Typography>Loading</Typography>;
   }
   if (data) {
-    dispatch(addComparatorResults(data));
-    return <>{props.children}</>;
+    return (
+      <Container>
+        <ResultsDisplay ticker={ticker} params={params as CombinedParams} results={data} />
+      </Container>
+    );
   }
   return <Typography>Error</Typography>;
 };

@@ -1,6 +1,6 @@
 import { Grid, Typography, Table, TableHead, TableBody, TableRow, TableCell, IconButton } from "@mui/material";
 import React, { useState } from "react";
-import { CompaniesInfo, CompanyInfo } from "../api/CompaniesInfos";
+import { CompanyInfo } from "../api/CompaniesInfos";
 import RowFiller from "./RowFiller";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";

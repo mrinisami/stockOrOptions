@@ -1,13 +1,13 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { advancedParams, GenericParams, SellWRetParams } from "../States/optionComp";
+import { advancedParams, GenericParams, MaxRetParams, SellWRetParams } from "../States/optionComp";
 import ConfirmParams from "./ConfirmParams";
 
 interface Props {
   addAdvancedParams: (params: advancedParams) => void;
   addGenericParams: (params: GenericParams) => void;
   genericParams: GenericParams;
-  reRoute: (route: string, params: advancedParams | GenericParams) => void;
+  reRouteMaxRet: (route: string, genericParams: GenericParams, advancedParams: MaxRetParams) => void;
 }
 
 export default (props: Props) => {

@@ -2,9 +2,10 @@ import React from "react";
 import { Table, TableRow, TableBody, TableCell, TableHead, Typography } from "@mui/material";
 import { Stats } from "../../../utils/statGenerator";
 import RowFiller from "./RowFiller";
+import { StatsMaxRet } from "../../../utils/statGeneratorMaxRet";
 
 export interface ChosenStats {
-  cie: Stats;
+  cie: Stats | StatsMaxRet;
   rank: number;
 }
 

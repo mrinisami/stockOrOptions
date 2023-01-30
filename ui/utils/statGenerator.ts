@@ -1,8 +1,8 @@
-import { CompanyData, SimpleStats } from "../api/Results";
+import { CompanyData, CompanyDataMaxRet, SimpleStats } from "../api/Results";
 
 export interface Stats {
   stats: SimpleStats;
-  company: CompanyData;
+  company: CompanyData | CompanyDataMaxRet;
 }
 
 export function topPerformerStat(
@@ -33,7 +33,7 @@ export function topPerformerStatYearly(companies: CompanyData[], instrument: "st
   return usedStats;
 }
 
-function calculateReturn(profit: number, nomValue: number, period: number): number {
+export function calculateReturn(profit: number, nomValue: number, period: number): number {
   let minRate = -1.5;
   let maxRate = 2;
   let guess = (maxRate + minRate) / 2;

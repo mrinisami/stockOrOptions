@@ -28,7 +28,6 @@ export default (props: Props) => {
       options={props.companies}
       renderInput={(params) => <TextField {...params} label="Companies" />}
       fullWidth={true}
-      sx={{ width: "100%" }}
     />
   );
 };

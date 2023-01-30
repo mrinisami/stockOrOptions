@@ -11,13 +11,13 @@ import {
   DialogTitle,
   Button
 } from "@mui/material";
-import { advancedParams, GenericParams, strategies } from "../States/optionComp";
-import MaxRetParams from "./MaxRetParams";
+import { advancedParams, GenericParams, strategies, MaxRetParams } from "../States/optionComp";
 import SellWRet from "./SellWRet";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import { routes } from "../routes";
 import { CompanyInfo } from "../api/CompaniesInfos";
 import ErrorIcon from "@mui/icons-material/Error";
+import MaxRet from "./MaxRetParams";
 
 interface Props {
   addStrategy: (strategy: strategies) => void;
@@ -25,7 +25,8 @@ interface Props {
   addGenericParams: (params: GenericParams) => void;
   genericParams: GenericParams;
   chosenCompany: CompanyInfo;
-  reRoute: (route: string, params: advancedParams | GenericParams) => void;
+  reRoute: (route: string, genericParams: GenericParams) => void;
+  reRouteMaxRet: (route: string, genericParams: GenericParams, advancedParams: MaxRetParams) => void;
 }
 
 export default (props: Props) => {
@@ -39,7 +40,6 @@ export default (props: Props) => {
     const maxBackTestLength = Math.floor(
       (Date.now() - Date.parse(props.chosenCompany.startDate)) / (1000 * 60 * 60 * 24 * 365.25)
     );
-    console.log(maxBackTestLength);
     const onClickSubmitParams = () => {
       props.addGenericParams(props.genericParams);
       const comparableDate = Date.now() - props.genericParams.backTestLength * (1000 * 60 * 60 * 24 * 365.25);
@@ -54,11 +54,11 @@ export default (props: Props) => {
     };
     if (strategy === "maxRet") {
       return (
-        <MaxRetParams
+        <MaxRet
           addAdvancedParams={props.addAdvancedParams}
           genericParams={props.genericParams}
           addGenericParams={props.addGenericParams}
-          reRoute={props.reRoute}
+          reRouteMaxRet={props.reRouteMaxRet}
         />
       );
     } else if (strategy === "sellWRet")
@@ -67,7 +67,7 @@ export default (props: Props) => {
           addAdvancedParams={props.addAdvancedParams}
           genericParams={props.genericParams}
           addGenericParams={props.addGenericParams}
-          reRoute={props.reRoute}
+          reRouteMaxRet={props.reRouteMaxRet}
         />
       );
     else

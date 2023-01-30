@@ -16,7 +16,7 @@ export const App = () => {
           <Route exact path={routes.home} component={Home} />
           <Route exact path={routes.topCompanies} component={StrategySelection} />
           <Route exact path={`${routes.simpleResults}/:ticker`} component={ResultsPage} />
-          <Route exact path={routes.maxRetResults} component={MaxRetResultLoader} />
+          <Route exact path={`${routes.maxRetResults}/:ticker`} component={MaxRetResultLoader} />
         </Switch>
       </Provider>
     </>

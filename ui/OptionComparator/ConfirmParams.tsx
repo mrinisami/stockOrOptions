@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import { advancedParams, GenericParams, strategies } from "../States/optionComp";
+import { advancedParams, GenericParams, MaxRetParams, strategies } from "../States/optionComp";
 import { routes } from "../routes";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   addGenericParams: (params: GenericParams) => void;
   advancedParams: advancedParams;
   genericParams: GenericParams;
-  reRoute: (route: string, params: advancedParams | GenericParams) => void;
+  reRouteMaxRet: (route: string, genericParams: GenericParams, advancedParams: MaxRetParams) => void;
   strategy: strategies;
 }
 
@@ -18,7 +18,7 @@ export default (props: Props) => {
     props.addAdvancedParams(props.advancedParams);
     props.addGenericParams(props.genericParams);
     if (props.strategy === "maxRet") {
-      props.reRoute(routes.maxRetResults, props.advancedParams);
+      props.reRouteMaxRet(routes.maxRetResults, props.genericParams, props.advancedParams);
     }
   };
   return (

@@ -1,4 +1,4 @@
-import { Card, Grid, Paper } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +7,16 @@ import {
   addCompanyInfo,
   advancedParams,
   GenericParams,
+  MaxRetParams,
   setAdvancedParams,
   setGenericParams,
   setStrategy,
   strategies
 } from "../States/optionComp";
-import ChoosingCompany from "./ChoosingCompany";
 import CompanyLoader from "./CompanyLoader";
 import ComparatorOptions from "./ComparatorOptions";
 import TopCompanies from "./TopCompanies";
+import { Box } from "@mui/system";
 
 export default () => {
   const dispatch = useDispatch();
@@ -34,12 +35,18 @@ export default () => {
   const addAdvancedParams = (params: advancedParams) => {
     dispatch(setAdvancedParams(params));
   };
-  const routeResults = (route: string, params: advancedParams | GenericParams) => {
+  const simpleComparatorRouteResults = (route: string, genericParams: GenericParams) => {
     navigate.push(
-      `${route}/${chosenCompany.ticker}?marketCap=${params.marketCap}&maturity=${params.maturity}
-        &nbComparables=${params.nbComparables}&backTestLength=${params.backTestLength}
-        &taxRate=${params.taxRate}&nomValue=${params.nomValue}`
+      `${route}/${chosenCompany.ticker}?marketCap=${genericParams.marketCap}&maturity=${genericParams.maturity}
+        &nbComparables=${genericParams.nbComparables}&backTestLength=${genericParams.backTestLength}
+        &taxRate=${genericParams.taxRate}&nomValue=${genericParams.nomValue}`
     );
+  };
+  const maxRetRoute = (route: string, genericParams: GenericParams, advancedParams: MaxRetParams) => {
+    navigate.push(`${route}/${chosenCompany.ticker}?marketCap=${genericParams.marketCap}
+    &maturity=${genericParams.maturity}
+    &nbComparables=${genericParams.nbComparables}&backTestLength=${genericParams.backTestLength}
+    &taxRate=${genericParams.taxRate}&nomValue=${genericParams.nomValue}&retThreshold=${advancedParams.retThreshold}`);
   };
   if (ciesData.length > 0) {
     return renderContent();
@@ -49,29 +56,28 @@ export default () => {
 
   function renderContent() {
     return (
-      <Grid container justifyContent="space-around" sx={{ pt: 3 }} flexWrap="nowrap">
-        <Grid item xs={3}>
-          <Paper>
-            <TopCompanies addChosenCompany={addCompany} companies={ciesData} />
-          </Paper>
-        </Grid>
-        <Paper>
-          <Grid container item direction="column" alignItems="center" rowSpacing={2}>
-            <Grid item sx={{ width: "50%" }}>
-              <ChoosingCompany companies={ciesData} addChosenCompany={addCompany} chosenCompany={chosenCompany} />
-            </Grid>
-            <Grid item sx={{ pb: 3 }}>
-              <ComparatorOptions
-                chosenCompanyInfo={chosenCompany}
-                addGenericParams={addGenericParams}
-                addStrategy={addStrategy}
-                addAdvancedParams={addAdvancedParams}
-                reRoute={routeResults}
-              />
-            </Grid>
+      <Box sx={{ mt: 4 }}>
+        <Grid container justifyContent="space-around" flexWrap="nowrap">
+          <Grid item xs={3}>
+            <Paper>
+              <TopCompanies addChosenCompany={addCompany} companies={ciesData} />
+            </Paper>
           </Grid>
-        </Paper>
-      </Grid>
+          <Grid item>
+            <ComparatorOptions
+              chosenCompanyInfo={chosenCompany}
+              addGenericParams={addGenericParams}
+              addStrategy={addStrategy}
+              addAdvancedParams={addAdvancedParams}
+              reRoute={simpleComparatorRouteResults}
+              reRouteMaxRet={maxRetRoute}
+              companies={ciesData}
+              addChosenCompany={addCompany}
+              chosenCompany={chosenCompany}
+            />
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
 };

@@ -1,4 +1,3 @@
-import { ChosenStats } from "../OptionComparator/Results/SimpleResults/Graph";
 import { Stats } from "./statGenerator";
 
 export function createGraph(optionStats: Stats[], stockStats: Stats[]) {

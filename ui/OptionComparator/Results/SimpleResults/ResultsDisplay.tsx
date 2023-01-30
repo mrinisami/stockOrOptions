@@ -89,12 +89,12 @@ export default (props: Props) => {
             </Typography>
           </Grid>
           <Grid item container justifyContent="space-evenly" alignItems="center">
-            <Grid item xs={4} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
+            <Grid item xs={5} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
               <Typography variant="h4" align="center">
                 Option
               </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
+            <Grid item xs={5} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
               <Typography variant="h4" align="center">
                 Stock
               </Typography>
@@ -120,12 +120,12 @@ export default (props: Props) => {
             </Typography>
           </Grid>
           <Grid item container justifyContent="space-evenly">
-            <Grid item xs={4} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
+            <Grid item xs={5} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
               <Typography variant="h4" align="center">
                 Option
               </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
+            <Grid item xs={5} sx={{ borderBottom: "groove", borderRadius: "1rem" }}>
               <Typography variant="h4" align="center">
                 Stock
               </Typography>
@@ -134,12 +134,12 @@ export default (props: Props) => {
           <Grid item container justifyContent="space-evenly">
             <Grid item xs={5}>
               <Paper elevation={18}>
-                <TopWinners displayedStats={sortedOptionStats.reverse()} ticker={ticker} />
+                <TopWinners displayedStats={[...sortedOptionStats].reverse()} ticker={ticker} />
               </Paper>
             </Grid>
             <Grid item xs={5}>
               <Paper elevation={18}>
-                <TopWinners displayedStats={sortedStockStats.reverse()} ticker={ticker} />
+                <TopWinners displayedStats={[...sortedStockStats].reverse()} ticker={ticker} />
               </Paper>
             </Grid>
           </Grid>

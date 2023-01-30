@@ -18,14 +18,14 @@ export interface ComparatorData {
   companies: CompanyData[];
 }
 
-interface YearDataMaxRet {
+export interface YearDataMaxRet {
   year: number;
   returnRate: number;
   meanProfit: number;
   financialAsset: string;
 }
 
-interface CompanyDataMaxRet {
+export interface CompanyDataMaxRet {
   symbol: string;
   years: YearDataMaxRet[];
 }
@@ -33,4 +33,3 @@ interface CompanyDataMaxRet {
 export interface ComparatorDataMaxRet {
   companies: CompanyDataMaxRet[];
 }
-S;

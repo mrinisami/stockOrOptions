@@ -1,13 +1,13 @@
 import { Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { advancedParams, GenericParams } from "../States/optionComp";
+import { advancedParams, GenericParams, MaxRetParams } from "../States/optionComp";
 import ConfirmParams from "./ConfirmParams";
 
 interface Props {
   addAdvancedParams: (params: advancedParams) => void;
   addGenericParams: (params: GenericParams) => void;
   genericParams: GenericParams;
-  reRoute: (route: string, params: advancedParams | GenericParams) => void;
+  reRouteMaxRet: (route: string, genericParams: GenericParams, advancedParams: MaxRetParams) => void;
 }
 
 export default (props: Props) => {
@@ -30,7 +30,7 @@ export default (props: Props) => {
           advancedParams={{ retThreshold: retThreshold }}
           genericParams={props.genericParams}
           addGenericParams={props.addGenericParams}
-          reRoute={props.reRoute}
+          reRouteMaxRet={props.reRouteMaxRet}
           strategy="maxRet"
         />
       </Grid>
