@@ -20,9 +20,8 @@ import TopCompanies from "./TopCompanies";
 export default () => {
   const dispatch = useDispatch();
   const navigate = useHistory();
-  const ciesData = useSelector((state) => state.optionComp.allCompaniesInfo);
+  const ciesData: CompanyInfo[] = useSelector((state) => state.optionComp.allCompaniesInfo);
   const chosenCompany: CompanyInfo = useSelector((state) => state.optionComp.chosenCompanyInfo);
-
   const addCompany = (company: CompanyInfo) => {
     dispatch(addCompanyInfo(company));
   };
@@ -38,8 +37,8 @@ export default () => {
   const routeResults = (route: string, params: advancedParams | GenericParams) => {
     navigate.push(
       `${route}/${chosenCompany.ticker}?marketCap=${params.marketCap}&maturity=${params.maturity}
-      &nbComparables=${params.nbComparables}&backTestLength=${params.backTestLength}
-      &taxRate=${params.taxRate}&nomValue=${params.nomValue}`
+        &nbComparables=${params.nbComparables}&backTestLength=${params.backTestLength}
+        &taxRate=${params.taxRate}&nomValue=${params.nomValue}`
     );
   };
   if (ciesData.length > 0) {
@@ -59,11 +58,11 @@ export default () => {
         <Paper>
           <Grid container item direction="column" alignItems="center" rowSpacing={2}>
             <Grid item sx={{ width: "50%" }}>
-              <ChoosingCompany companies={ciesData} addChosenCompany={addCompany} />
+              <ChoosingCompany companies={ciesData} addChosenCompany={addCompany} chosenCompany={chosenCompany} />
             </Grid>
             <Grid item sx={{ pb: 3 }}>
               <ComparatorOptions
-                chosenCompanyMarketCap={chosenCompany.marketCap}
+                chosenCompanyInfo={chosenCompany}
                 addGenericParams={addGenericParams}
                 addStrategy={addStrategy}
                 addAdvancedParams={addAdvancedParams}

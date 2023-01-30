@@ -7,7 +7,8 @@ import {
   FormLabel,
   Typography,
   Grid,
-  TextField,
+  Dialog,
+  DialogTitle,
   Button
 } from "@mui/material";
 import { advancedParams, GenericParams, strategies } from "../States/optionComp";
@@ -15,12 +16,15 @@ import MaxRetParams from "./MaxRetParams";
 import SellWRet from "./SellWRet";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import { routes } from "../routes";
+import { CompanyInfo } from "../api/CompaniesInfos";
+import ErrorIcon from "@mui/icons-material/Error";
 
 interface Props {
   addStrategy: (strategy: strategies) => void;
   addAdvancedParams: (params: advancedParams) => void;
   addGenericParams: (params: GenericParams) => void;
   genericParams: GenericParams;
+  chosenCompany: CompanyInfo;
   reRoute: (route: string, params: advancedParams | GenericParams) => void;
 }
 
@@ -31,9 +35,22 @@ export default (props: Props) => {
   };
 
   function displayAdvancedParams() {
+    const [showError, setShowError] = useState<boolean>(false);
+    const maxBackTestLength = Math.floor(
+      (Date.now() - Date.parse(props.chosenCompany.startDate)) / (1000 * 60 * 60 * 24 * 365.25)
+    );
+    console.log(maxBackTestLength);
     const onClickSubmitParams = () => {
       props.addGenericParams(props.genericParams);
-      props.reRoute(routes.simpleResults, props.genericParams);
+      const comparableDate = Date.now() - props.genericParams.backTestLength * (1000 * 60 * 60 * 24 * 365.25);
+      if (comparableDate > Date.parse(props.chosenCompany.startDate)) {
+        props.reRoute(routes.simpleResults, props.genericParams);
+      } else {
+        setShowError(true);
+      }
+    };
+    const handleClose = () => {
+      setShowError(false);
     };
     if (strategy === "maxRet") {
       return (
@@ -59,6 +76,21 @@ export default (props: Props) => {
           <Button endIcon={<ArrowCircleRightOutlinedIcon />} onClick={onClickSubmitParams}>
             <Typography>View Results</Typography>
           </Button>
+          <Dialog open={showError} onClose={handleClose}>
+            <DialogTitle>
+              <Grid container>
+                <Grid item>
+                  <ErrorIcon />
+                </Grid>
+                <Grid item>
+                  <Typography>Backtesting Length is longer than the company's start date</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography>Maximum backtesting length is {maxBackTestLength}</Typography>
+                </Grid>
+              </Grid>
+            </DialogTitle>
+          </Dialog>
         </Grid>
       );
   }

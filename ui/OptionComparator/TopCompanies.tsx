@@ -1,16 +1,12 @@
-import { Grid, Typography, Button, Table, TableHead, TableBody, TableRow, TableCell, IconButton } from "@mui/material";
+import { Grid, Typography, Table, TableHead, TableBody, TableRow, TableCell, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { CompaniesInfo, CompanyInfo } from "../api/CompaniesInfos";
 import RowFiller from "./RowFiller";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useDispatch, useSelector } from "react-redux";
-import CompanyLoader from "./CompanyLoader";
-import { render } from "react-dom";
-import { addCompanyInfo } from "../States/optionComp";
 
 interface Props {
-  companies: CompaniesInfo;
+  companies: CompanyInfo[];
   addChosenCompany: (company: CompanyInfo) => void;
 }
 

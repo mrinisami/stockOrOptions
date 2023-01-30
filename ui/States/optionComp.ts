@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { CompaniesInfo, CompanyInfo } from "../api/CompaniesInfos";
 import { ComparatorData, ComparatorDataMaxRet } from "../api/Results";
 
 export interface OptionState {
   chosenCompanyInfo: CompanyInfo;
   chosenStrategy: strategies;
-  allCompaniesInfo: CompaniesInfo | [];
+  allCompaniesInfo: CompanyInfo[];
   genericParams: GenericParams;
   advancedParams: advancedParams;
   results: ComparatorData | ComparatorDataMaxRet;

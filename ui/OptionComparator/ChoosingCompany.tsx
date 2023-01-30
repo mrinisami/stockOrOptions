@@ -1,15 +1,19 @@
-import { Grid, Autocomplete, Typography, TextField } from "@mui/material";
-import React, { useState } from "react";
-import { CompaniesInfo, CompanyInfo } from "../api/CompaniesInfos";
+import { Autocomplete, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { CompanyInfo } from "../api/CompaniesInfos";
 
 interface Props {
   companies: readonly CompanyInfo[];
   addChosenCompany: (company: CompanyInfo) => void;
+  chosenCompany: CompanyInfo;
 }
 
 export default (props: Props) => {
-  const [company, setCompany] = useState<CompanyInfo | null>(null);
+  const [company, setCompany] = useState<CompanyInfo | null>(props.chosenCompany);
   const defaultProps = { options: props.companies, getOptionLabel: (option: CompanyInfo) => option.cieName };
+  useEffect(() => {
+    setCompany(props.chosenCompany);
+  }, [props]);
   return (
     <Autocomplete
       {...defaultProps}

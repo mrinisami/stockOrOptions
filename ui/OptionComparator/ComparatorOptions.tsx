@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TextField, Grid } from "@mui/material";
 import { advancedParams, GenericParams, strategies } from "../States/optionComp";
 import StrategyOption from "./StrategyOption";
+import { CompanyInfo } from "../api/CompaniesInfos";
 
 interface Props {
-  chosenCompanyMarketCap: number;
+  chosenCompanyInfo: CompanyInfo;
   addGenericParams: (params: GenericParams) => void;
   addStrategy: (strategy: strategies) => void;
   addAdvancedParams: (params: advancedParams) => void;
@@ -13,7 +14,7 @@ interface Props {
 
 export default (props: Props) => {
   const initParams: GenericParams = {
-    marketCap: props.chosenCompanyMarketCap,
+    marketCap: props.chosenCompanyInfo.marketCap,
     maturity: 10,
     nbComparables: 20,
     backTestLength: 10,
@@ -34,8 +35,8 @@ export default (props: Props) => {
   const onNomValueChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setParamaters({ ...paramaters, nomValue: Number(event.target.value) });
   useEffect(() => {
-    setParamaters({ ...paramaters, marketCap: props.chosenCompanyMarketCap });
-  }, [props.chosenCompanyMarketCap]);
+    setParamaters({ ...paramaters, marketCap: props.chosenCompanyInfo.marketCap });
+  }, [props.chosenCompanyInfo.marketCap]);
 
   return (
     <Grid container item spacing={2} direction="column" alignItems="center">
@@ -93,6 +94,7 @@ export default (props: Props) => {
         genericParams={paramaters}
         addGenericParams={props.addGenericParams}
         reRoute={props.reRoute}
+        chosenCompany={props.chosenCompanyInfo}
       />
     </Grid>
   );
