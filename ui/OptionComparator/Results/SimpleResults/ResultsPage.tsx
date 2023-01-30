@@ -1,0 +1,33 @@
+import { Container, Typography } from "@mui/material";
+import useAxios from "axios-hooks";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { routes } from "../../../routes";
+import ResultsDisplay from "./ResultsDisplay";
+import queryString from "query-string";
+import { GenericParams } from "../../../States/optionComp";
+
+export default () => {
+  const params = queryString.parse(location.search, { parseNumbers: true }) as unknown;
+  const ticker = useParams<{ ticker: string }>().ticker;
+  const [{ data, error, loading }] = useAxios({
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+    url: routes.simpleResults,
+    data: params,
+    method: "post"
+  });
+  if (error) {
+    return <Typography>Error...</Typography>;
+  }
+  if (loading) {
+    return <Typography>Loading</Typography>;
+  }
+  if (data) {
+    return (
+      <Container>
+        <ResultsDisplay results={data} genericParams={params as GenericParams} ticker={ticker} />
+      </Container>
+    );
+  }
+  return <Typography>Error</Typography>;
+};

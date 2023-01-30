@@ -1,0 +1,13 @@
+{
+	"Servers": {
+		"1": {
+			"Name": "stockVOption_db",
+			"Group": "Servers",
+			"Host": "stockVOption_pg",
+			"Port": 5432,
+			"MaintenanceDB": "stockVOption",
+			"Username": "dev",
+			"SSLMode": "prefer"
+		}
+	}
+}

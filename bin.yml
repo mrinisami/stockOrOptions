@@ -1,0 +1,50 @@
+name: my project
+description: is pretty cool
+
+env:
+  APP_ENV: dev
+  DB_URL: postgresql+psycopg2://dev:admin123@localhost/stockVOption
+  CORS_ORIGINS: http://localhost:8000/
+
+requirements:
+  - name: Docker
+    met_if: docker --version
+    help: Download docker @ https://docker.com
+  - name: poetry
+    met_if: poetry --version
+    help: install poetry
+  - name: python
+    run: python -V
+    version: "^3.11.0"
+    help: install python version 3.11+
+
+up:
+  - name: install dependencies
+    up: poetry install --sync
+  - name: docker-compose
+    up: docker-compose up -d
+    down: docker-compose down
+  - name: wait for database
+    up: timeout 5
+  - name: db migrations
+    up: poetry run alembic upgrade heads
+
+commands:
+  run: poetry run uvicorn svo.api.option_comparator:app
+  comp: poetry run python svo/api/option_comparator.py
+  start: npm start
+  jupyter: poetry run jupyter notebook
+  test:
+    run: echo run tests
+    alias: t
+    env:
+      APP_ENV: test
+  lint:
+    run: echo lint all
+    aliases:
+      - format
+      - style
+      - check
+    subcommands:
+      frontend: echo frontend lint
+      backend: echo backend lint
