@@ -2,6 +2,10 @@
 
 ### Web App to compare the profitability of employee stock options vs employee stocks. The database is constructed of all Tech listed companies in the US market
 
+---
+Database used is Postgres through a docker image.
+
+Look at the bin.yml for commands that need to be run
 
 ---
 
