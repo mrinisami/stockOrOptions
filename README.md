@@ -1,18 +1,22 @@
-# stockOrOptions
+# Stock or Options
 
-### Web App to compare the profitability of employee stock options vs employee stocks. The database is constructed of all Tech listed companies in the US market
+Stock or Options is a Web Application that offers relevant information on simulated remunaration for an employee of a tech company.
 
----
-Database used is Postgres through a docker image.
+## Requirements
 
-Look at the bin.yml for commands that need to be run
+- Python 3.11
+- npm
+- Docker
 
----
+## Run
 
-### **Simple Comparator**
+`bin up` to boot the server
 
----
+## Client
 
-#### 1. User chooses company
-#### 2. User fixes option parameters
-#### > Results are presented for the comparables and the chosen company on a year-by-year basis or in the aggregate
+Available commands:
+`cd ui`
+
+`npm install`
+
+`npm start`
